@@ -14,6 +14,12 @@ format_string = sys.argv[2]
 log_filename = sys.argv[3]
 
 s = ArduinoSerial(serial_port, baudrate=115200)
+
+while True:
+    line = s.readline()
+    if line.strip() == "OK":
+        break
+
 log_file = open(log_filename, "w")
 
 token_types = {
@@ -40,5 +46,6 @@ try:
 except KeyboardInterrupt:
     pass
 
+s.flush()
 s.close()
 log_file.close()
