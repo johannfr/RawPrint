@@ -15,7 +15,7 @@ class ArduinoSerial(serial.Serial):
 
 
 if __name__ == "__main__":
-    s = ArduinoSerial("/dev/ttyUSB0", baudrate=115200)
+    s = ArduinoSerial("/dev/ttyUSB0", baudrate=115200, timeout=1)
 
     try:
         print s.read_double()

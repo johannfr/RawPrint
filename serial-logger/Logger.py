@@ -13,7 +13,7 @@ serial_port = sys.argv[1]
 format_string = sys.argv[2]
 log_filename = sys.argv[3]
 
-s = ArduinoSerial(serial_port, baudrate=115200)
+s = ArduinoSerial(serial_port, baudrate=115200, timeout=1)
 
 while True:
     line = s.readline()
@@ -38,7 +38,9 @@ try:
             if c == "%":
                 token_match = True
             elif token_match:
-                tee(log_file, str(token_types[c]()))
+                value = str(token_types[c]())
+                if value:
+                    tee(log_file, value)
                 token_match = False
             else:
                 tee(log_file, c)
